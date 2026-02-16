@@ -1,7 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { FiZap } from "react-icons/fi";
 
 function Profile() {
   const [user, setUser] = useState(null);
@@ -135,68 +134,6 @@ function Profile() {
   };
 
   const percent = completion();
-
-  const handleAddEducation = async () => {
-    try {
-      const updatedEducation = [
-        ...(user.education || []),
-        eduForm,
-      ];
-
-      const res = await axios.put(
-        "https://gidy-server.onrender.com/api/profile",
-        { education: updatedEducation },
-        { headers: { Authorization: token } }
-      );
-
-      setUser(res.data);
-      setShowEducation(false);
-
-      setEduForm({
-        college: "",
-        degree: "",
-        field: "",
-        location: "",
-        startDate: "",
-        endDate: "",
-        current: false,
-      });
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  const handleAddExperience = async () => {
-    try {
-      const updatedExperience = [
-        ...(user.experience || []),
-        expForm,
-      ];
-
-      const res = await axios.put(
-        "https://gidy-server.onrender.com/api/profile",
-        { experience: updatedExperience },
-        { headers: { Authorization: token } }
-      );
-
-      setUser(res.data);
-      setShowExperience(false);
-
-      setExpForm({
-        company: "",
-        role: "",
-        location: "",
-        startDate: "",
-        endDate: "",
-        current: false,
-      });
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-
-
 
   const handleAddSkill = (skill) => {
     if (!selectedSkills.includes(skill)) {
