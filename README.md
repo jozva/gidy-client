@@ -1,16 +1,66 @@
-# React + Vite
+# Gidy Profile Builder
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A full-stack profile management application where users can build and manage their professional profile, including bio, skills, education, experience, certifications, and resume.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Live Demo
+https://gidysite.netlify.app
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Tech Stack
 
-## Expanding the ESLint configuration
+### Frontend
+- React
+- React Router
+- Tailwind CSS
+- Axios
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Backend
+- Node.js
+- Express.js
+- MongoDB (Mongoose)
+
+### File Storage
+- Cloudinary (for resume upload)
+
+---
+
+## Features
+
+- User authentication (JWT based)
+- Profile completion progress bar
+- Add/Edit/Delete:
+  - Bio
+  - Skills
+  - Education
+  - Experience
+  - Certifications
+- Resume upload and download
+- AI-generated bio
+- Fully responsive UI
+- Deployed on Netlify (frontend) and Render (backend)
+
+---
+
+## Innovation Feature
+
+### AI Bio Generator
+An AI-powered bio generator that creates a professional summary automatically based on the user's:
+
+- Skills
+- Education
+- Experience
+
+This helps freshers and professionals quickly generate a strong profile summary without writing it manually.
+
+---
+
+## Setup Instructions (Local)
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/your-username/gidy-project.git
+cd gidy-project
