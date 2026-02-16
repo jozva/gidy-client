@@ -1,0 +1,4 @@
+@import "tailwindcss";
+
+/* enable class-based dark mode */
+@config "../tailwind.config.js";
