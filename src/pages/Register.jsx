@@ -3,10 +3,10 @@ import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 
 function Register() {
- const [firstName, setFirstName] = useState("");
-const [lastName, setLastName] = useState("");
-const [email, setEmail] = useState("");
-const [password, setPassword] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const nav = useNavigate();
 
@@ -15,8 +15,8 @@ const [password, setPassword] = useState("");
 
     try {
       await axios.post("https://gidy-server.onrender.com/api/auth/register", {
-         firstName,
-  lastName,
+        firstName,
+        lastName,
         email,
         password,
       });
@@ -39,20 +39,20 @@ const [password, setPassword] = useState("");
         </h2>
 
         <input
-  className="border p-2 w-full mb-3 rounded"
-  placeholder="First Name"
-  value={firstName}
-  onChange={(e) => setFirstName(e.target.value)}
-  required
-/>
+          className="border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 p-2 w-full mb-3 rounded"
+          placeholder="First Name"
+          value={firstName}
+          onChange={(e) => setFirstName(e.target.value)}
+          required
+        />
 
-<input
-  className="border p-2 w-full mb-3 rounded"
-  placeholder="Last Name"
-  value={lastName}
-  onChange={(e) => setLastName(e.target.value)}
-  required
-/>
+        <input
+          className="border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 p-2 w-full mb-3 rounded"
+          placeholder="Last Name"
+          value={lastName}
+          onChange={(e) => setLastName(e.target.value)}
+          required
+        />
 
 
         <input
