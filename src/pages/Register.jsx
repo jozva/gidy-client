@@ -3,9 +3,11 @@ import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 
 function Register() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+ const [firstName, setFirstName] = useState("");
+const [lastName, setLastName] = useState("");
+const [email, setEmail] = useState("");
+const [password, setPassword] = useState("");
+
   const nav = useNavigate();
 
   const register = async (e) => {
@@ -13,7 +15,8 @@ function Register() {
 
     try {
       await axios.post("https://gidy-server.onrender.com/api/auth/register", {
-        name,
+         firstName,
+  lastName,
         email,
         password,
       });
@@ -36,12 +39,21 @@ function Register() {
         </h2>
 
         <input
-          className="border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 p-2 w-full mb-3 rounded"
-          placeholder="Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
-        />
+  className="border p-2 w-full mb-3 rounded"
+  placeholder="First Name"
+  value={firstName}
+  onChange={(e) => setFirstName(e.target.value)}
+  required
+/>
+
+<input
+  className="border p-2 w-full mb-3 rounded"
+  placeholder="Last Name"
+  value={lastName}
+  onChange={(e) => setLastName(e.target.value)}
+  required
+/>
+
 
         <input
           className="border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 p-2 w-full mb-3 rounded"

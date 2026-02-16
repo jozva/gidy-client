@@ -17,7 +17,6 @@ function Profile() {
   const nav = useNavigate();
   const token = localStorage.getItem("token");
 
-  // Education form state
   const [eduForm, setEduForm] = useState({
     college: "",
     degree: "",
@@ -28,7 +27,6 @@ function Profile() {
     current: false,
   });
 
-  // Experience form state
   const [expForm, setExpForm] = useState({
     company: "",
     role: "",
@@ -138,7 +136,6 @@ function Profile() {
 
   const percent = completion();
 
-  // Add education
   const handleAddEducation = async () => {
     try {
       const updatedEducation = [
@@ -169,7 +166,6 @@ function Profile() {
     }
   };
 
-  // Add experience
   const handleAddExperience = async () => {
     try {
       const updatedExperience = [
@@ -248,14 +244,12 @@ function Profile() {
 
   const handleUpdateProfile = async () => {
     try {
-      // update profile text fields
       const res = await axios.put(
         "https://gidy-server.onrender.com/api/profile",
         profileForm,
         { headers: { Authorization: token } }
       );
 
-      // upload resume if exists
       if (resumeFile) {
         const formData = new FormData();
         formData.append("firstName", profileForm.firstName);
@@ -277,7 +271,12 @@ function Profile() {
       setUser(res.data);
       setShowBio(false);
       setResumeFile(null);
-      setProfileForm(user);
+      setProfileForm({
+        firstName: res.data.firstName || "",
+        lastName: res.data.lastName || "",
+        location: res.data.location || "",
+        bio: res.data.bio || "",
+      });
 
     } catch (err) {
       console.log(err);
@@ -306,10 +305,8 @@ function Profile() {
       let updatedExperience = [...(user.experience || [])];
 
       if (editingExpIndex !== null) {
-        // edit mode
         updatedExperience[editingExpIndex] = expForm;
       } else {
-        // add mode
         updatedExperience.push(expForm);
       }
 
@@ -324,7 +321,6 @@ function Profile() {
       resetExperienceForm();
       setEditingExpIndex(null);
 
-      // reset form
       setExpForm({
         company: "",
         role: "",
@@ -482,13 +478,12 @@ function Profile() {
     <div className="min-h-screen bg-gray-100 dark:bg-gray-900 text-black dark:text-white p-6">
       <div className="max-w-6xl mx-auto space-y-6">
 
-        {/* Top Profile Card */}
         <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow flex justify-between">
           <div className="flex gap-4">
             <div className="w-16 h-16 rounded-full bg-yellow-400" />
             <div>
               <h2 className="text-lg font-semibold">
-                {user.name} <span className="text-gray-400"></span>
+                {(user.firstName || "") + " " + (user.lastName || "")}
               </h2>
               <p className="text-blue-500 text-sm">{user.email}</p>
               {user.resume && (
@@ -512,13 +507,10 @@ function Profile() {
           </div>
         </div>
 
-        {/* Main Grid */}
         <div className="grid md:grid-cols-3 gap-6">
 
-          {/* LEFT */}
           <div className="space-y-6">
 
-            {/* Progress */}
             <div className="bg-white dark:bg-gray-800 p-5 rounded-xl shadow">
               <h3 className="font-semibold">
                 Level Up Profile
@@ -536,8 +528,7 @@ function Profile() {
             </div>
 
 
-            {/* bio */}
-            {/* bio */}
+            
             <div className="bg-white dark:bg-gray-800 p-5 rounded-xl shadow">
               <div className="flex justify-between">
                 <h3 className="font-semibold">Bio</h3>
@@ -570,7 +561,6 @@ function Profile() {
 
 
 
-            {/* Skills */}
             <div className="bg-white dark:bg-gray-800 p-5 rounded-xl shadow">
               <div className="flex justify-between">
                 <h3 className="font-semibold">Skills</h3>
@@ -607,10 +597,8 @@ function Profile() {
 
           </div>
 
-          {/* RIGHT */}
           <div className="md:col-span-2 space-y-6">
 
-            {/* Experience */}
             <div className="bg-white dark:bg-gray-800 p-5 rounded-xl shadow">
               <div className="flex justify-between">
                 <h3 className="font-semibold">Experience</h3>
@@ -642,9 +630,9 @@ function Profile() {
                       <div className="flex gap-2">
                         <button
                           onClick={() => {
-                            setExpForm(user.experience[i]); // existing data load
-                            setEditingExpIndex(i);          // set edit mode
-                            setShowExperience(true);        // open modal
+                            setExpForm(user.experience[i]); 
+                            setEditingExpIndex(i);          
+                            setShowExperience(true);        
                           }}
                           className="text-blue-500 text-sm"
                         >
@@ -671,7 +659,6 @@ function Profile() {
               )}
             </div>
 
-            {/* Education */}
             <div className="bg-white dark:bg-gray-800 p-5 rounded-xl shadow">
               <div className="flex justify-between">
                 <h3 className="font-semibold">Education</h3>
@@ -731,7 +718,6 @@ function Profile() {
               )}
             </div>
 
-            {/* certification */}
             <div className="bg-white dark:bg-gray-800 p-5 rounded-xl shadow">
               <div className="flex justify-between">
                 <h3 className="font-semibold">Certification</h3>
@@ -806,7 +792,6 @@ function Profile() {
         </div>
       </div>
 
-      {/* EDUCATION MODAL */}
       {showEducation && (
         <div
           className="fixed inset-0 bg-black/40 flex items-center justify-center z-50"
@@ -821,7 +806,6 @@ function Profile() {
             </h2>
 
             <div className="space-y-3">
-              {/* College */}
               <input
                 className="w-full border p-2 rounded dark:bg-gray-700 dark:border-gray-600"
                 placeholder="College"
@@ -831,7 +815,6 @@ function Profile() {
                 }
               />
 
-              {/* Degree */}
               <input
                 className="w-full border p-2 rounded dark:bg-gray-700 dark:border-gray-600"
                 placeholder="Degree"
@@ -841,7 +824,6 @@ function Profile() {
                 }
               />
 
-              {/* Field */}
               <input
                 className="w-full border p-2 rounded dark:bg-gray-700 dark:border-gray-600"
                 placeholder="Field of Study"
@@ -851,7 +833,6 @@ function Profile() {
                 }
               />
 
-              {/* Location */}
               <input
                 className="w-full border p-2 rounded dark:bg-gray-700 dark:border-gray-600"
                 placeholder="Location"
@@ -861,7 +842,6 @@ function Profile() {
                 }
               />
 
-              {/* Start Date */}
               <input
                 type="date"
                 className="w-full border p-2 rounded dark:bg-gray-700 dark:border-gray-600"
@@ -871,7 +851,6 @@ function Profile() {
                 }
               />
 
-              {/* Currently studying */}
               <label className="flex items-center gap-2 text-sm">
                 <input
                   type="checkbox"
@@ -883,7 +862,6 @@ function Profile() {
                 Currently studying here
               </label>
 
-              {/* End Date */}
               {!eduForm.current && (
                 <input
                   type="date"
@@ -920,7 +898,6 @@ function Profile() {
       )}
 
 
-      {/* EXPERIENCE MODAL */}
       {showExperience && (
         <div
           className="fixed inset-0 bg-black/40 flex items-center justify-center z-50"
@@ -1037,7 +1014,6 @@ function Profile() {
         </div>
       )}
 
-      {/* CERTIFICATION MODAL */}
       {showCertification && (
         <div
           className="fixed inset-0 bg-black/40 flex items-center justify-center z-50"
@@ -1180,7 +1156,6 @@ function Profile() {
         </div>
       )}
 
-      {/* skill */}
 
       {showSkills && (
         <div
@@ -1193,7 +1168,6 @@ function Profile() {
           >
             <h2 className="text-lg font-semibold mb-4">Skills</h2>
 
-            {/* Selected Skills */}
             <div className="flex flex-wrap gap-2 mb-3">
               {selectedSkills.map((skill, i) => (
                 <span
@@ -1211,7 +1185,6 @@ function Profile() {
               ))}
             </div>
 
-            {/* Input */}
             <input
               className="w-full border p-2 rounded mb-2"
               placeholder="Search skills"
@@ -1219,7 +1192,6 @@ function Profile() {
               onChange={(e) => setSkillInput(e.target.value)}
             />
 
-            {/* Suggestions */}
             <div className="max-h-40 overflow-y-auto border rounded">
               {skillOptions
                 .filter((s) =>
@@ -1255,7 +1227,6 @@ function Profile() {
         </div>
       )}
 
-      {/* bio */}
       {showBio && (
         <div
           className="fixed inset-0 bg-black/40 flex items-center justify-center z-50"
@@ -1269,16 +1240,13 @@ function Profile() {
             className="bg-white w-full max-w-md p-6 rounded-lg shadow-xl"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Avatar */}
             <div className="flex justify-center mb-4">
               <div className="w-20 h-20 rounded-full bg-yellow-400 relative">
                 <div className="absolute bottom-1 right-1 bg-blue-500 w-5 h-5 rounded-full border-2 border-white" />
               </div>
             </div>
 
-            {/* Form */}
             <div className="space-y-3">
-              {/* First Name */}
               <div>
                 <label className="text-sm">First Name *</label>
                 <input
@@ -1293,7 +1261,6 @@ function Profile() {
                 />
               </div>
 
-              {/* Last Name */}
               <div>
                 <label className="text-sm">Last Name *</label>
                 <input
@@ -1308,7 +1275,6 @@ function Profile() {
                 />
               </div>
 
-              {/* Email (read only) */}
               <div>
                 <label className="text-sm">Email ID *</label>
                 <input
@@ -1318,7 +1284,6 @@ function Profile() {
                 />
               </div>
 
-              {/* Location */}
               <div>
                 <label className="text-sm">Location</label>
                 <input
@@ -1333,7 +1298,6 @@ function Profile() {
                 />
               </div>
 
-              {/* Bio with AI icon */}
               <div>
                 <label className="text-sm">Bio</label>
                 <div className="relative">
@@ -1360,7 +1324,6 @@ function Profile() {
                 </div>
               </div>
 
-              {/* Resume upload */}
               <div
                 className="border-2 border-dashed rounded-lg p-6 text-center cursor-pointer"
                 onClick={() => fileInputRef.current.click()}
@@ -1385,7 +1348,6 @@ function Profile() {
               </div>
             </div>
 
-            {/* Buttons */}
             <div className="flex justify-end gap-3 mt-6">
               <button
                 onClick={() => {
